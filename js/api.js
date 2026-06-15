@@ -1,10 +1,27 @@
-const BASE_URL = ''; // replace with your API base URL
+// js/api.js
+
+const API_KEY = '4f73ef66'; 
+const BASE_URL = `https://www.omdbapi.com/?apikey=${API_KEY}&`;
 
 export async function fetchData(endpoint) {
-  // fetch, check response.ok, return response.json()
+  try {
+    const response = await fetch(`${BASE_URL}${endpoint}`);
+    if (!response.ok) throw new Error('Network response was not ok');
+    
+    const data = await response.json();
+    
+
+    if (data.Response === "False") throw new Error(data.Error);
+    
+    // Return the array of search results
+    return data.Search; 
+  } catch (error) {
+    console.error("Fetch error:", error);
+    throw error;
+  }
 }
 
-// localStorage helpers — import these wherever you need saved state
+
 export function getSaved() {
   const raw = localStorage.getItem('savedItems');
   return raw ? JSON.parse(raw) : [];

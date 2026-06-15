@@ -1,6 +1,7 @@
+// js/saved.js
 import { getSaved, setSaved } from './api.js';
 
-// redirect to login if no user session
+//Auth Logic
 if (!localStorage.getItem('user')) {
   window.location.href = 'login.html';
 }
@@ -13,6 +14,7 @@ document.getElementById('logout-btn').addEventListener('click', () => {
   window.location.href = 'login.html';
 });
 
+//Render Logic 
 function renderSaved() {
   const items = getSaved();
   const grid = document.getElementById('saved-grid');
@@ -29,17 +31,28 @@ function renderSaved() {
 
   items.forEach(item => {
     const card = document.createElement('article');
-    // build card content here
+    card.className = 'movie-card';
+
+    const title = document.createElement('h3');
+    title.textContent = item.Title;
+
+    const poster = document.createElement('img');
+    poster.src = item.Poster !== "N/A" ? item.Poster : "https://via.placeholder.com/200x300?text=No+Image";
+    poster.alt = item.Title;
 
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
     removeBtn.textContent = 'Remove';
+    
+    // Remove item from array and re-render
     removeBtn.addEventListener('click', () => {
-      const updated = getSaved().filter(saved => saved.id !== item.id);
+      const updated = getSaved().filter(saved => saved.imdbID !== item.imdbID);
       setSaved(updated);
       renderSaved();
     });
 
+    card.appendChild(poster);
+    card.appendChild(title);
     card.appendChild(removeBtn);
     grid.appendChild(card);
   });
