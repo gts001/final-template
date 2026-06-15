@@ -35,6 +35,8 @@ function showError(message) {
 }
 
 // --- Render Logic ---
+// Holds the watchlist as state. Used to mark already-saved items below,
+// and updated directly whenever the user saves a new one.
 function renderResults(items) {
   const grid = document.getElementById('results-grid');
   grid.innerHTML = '';
@@ -53,16 +55,16 @@ function renderResults(items) {
     poster.alt = item.Title;
 
     const saveBtn = document.createElement('button');
-    saveBtn.textContent = 'Add to Watchlist';
+
+    const alreadySaved = savedItems.some(saved => saved.imdbID === item.imdbID);
+    saveBtn.textContent = alreadySaved ? 'Saved!' : 'Add to Watchlist';
+    saveBtn.disabled = alreadySaved;
 
     saveBtn.addEventListener('click', () => {
-      let currentSaved = getSaved();
-      if (!currentSaved.some(saved => saved.imdbID === item.imdbID)) {
-        currentSaved.push(item);
-        setSaved(currentSaved);
-        saveBtn.textContent = 'Saved!';
-        saveBtn.disabled = true;
-      }
+      savedItems.push(item);
+      setSaved(savedItems);
+      saveBtn.textContent = 'Saved!';
+      saveBtn.disabled = true;
     });
 
     card.appendChild(poster);
