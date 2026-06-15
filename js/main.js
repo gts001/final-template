@@ -34,9 +34,7 @@ function showError(message) {
   }
 }
 
-// --- Render Logic ---
-// Holds the watchlist as state. Used to mark already-saved items below,
-// and updated directly whenever the user saves a new one.
+
 function renderResults(items) {
   const grid = document.getElementById('results-grid');
   grid.innerHTML = '';
@@ -80,6 +78,7 @@ document.getElementById('search-form').addEventListener('submit', async (e) => {
 
   const searchInput = document.getElementById('search-input').value.trim();
   const typeSelect = document.getElementById('type-select').value;
+  const yearInput = document.getElementById('year-input').value.trim();
 
   if (!searchInput) return;
 
@@ -90,6 +89,7 @@ document.getElementById('search-form').addEventListener('submit', async (e) => {
   try {
     let endpoint = `s=${encodeURIComponent(searchInput)}`;
     if (typeSelect) endpoint += `&type=${typeSelect}`;
+    if (yearInput) endpoint += `&y=${encodeURIComponent(yearInput)}`;
 
     const results = await fetchData(endpoint);
     renderResults(results);
