@@ -1,6 +1,7 @@
+// js/main.js
 import { fetchData, getSaved, setSaved } from './api.js';
 
-// redirect to login if no user session
+// --- Auth Logic ---
 if (!localStorage.getItem('user')) {
   window.location.href = 'login.html';
 }
@@ -14,24 +15,85 @@ document.getElementById('logout-btn').addEventListener('click', () => {
 });
 
 // --- State ---
-// keep your application state as an array of objects
+// Holds the user's saved watchlist as an array of objects, loaded from localStorage.
+// We'll put this to use in Phase 2.
 let savedItems = getSaved();
 
-function showLoading() {}
+// --- UI Helpers ---
+function showLoading(isLoading) {
+  document.getElementById('loading-msg').hidden = !isLoading;
+}
 
-function showError(message) {}
+function showError(message) {
+  const errorMsg = document.getElementById('error-msg');
+  if (message) {
+    errorMsg.textContent = message;
+    errorMsg.hidden = false;
+  } else {
+    errorMsg.hidden = true;
+  }
+}
 
+// --- Render Logic ---
 function renderResults(items) {
-  // create a card element for each item
-  // the click handler inside forEach closes over the item — this is your closure
+  const grid = document.getElementById('results-grid');
+  grid.innerHTML = '';
+
+  if (!items) return;
+
   items.forEach(item => {
     const card = document.createElement('article');
-    // build and append card content here
-    document.getElementById('results-grid').appendChild(card);
+    card.className = 'movie-card';
+
+    const title = document.createElement('h3');
+    title.textContent = item.Title;
+
+    const poster = document.createElement('img');
+    poster.src = item.Poster !== "N/A" ? item.Poster : "https://via.placeholder.com/200x300?text=No+Image";
+    poster.alt = item.Title;
+
+    const saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Add to Watchlist';
+
+    saveBtn.addEventListener('click', () => {
+      let currentSaved = getSaved();
+      if (!currentSaved.some(saved => saved.imdbID === item.imdbID)) {
+        currentSaved.push(item);
+        setSaved(currentSaved);
+        saveBtn.textContent = 'Saved!';
+        saveBtn.disabled = true;
+      }
+    });
+
+    card.appendChild(poster);
+    card.appendChild(title);
+    card.appendChild(saveBtn);
+    grid.appendChild(card);
   });
 }
 
+// --- Search Logic ---
 document.getElementById('search-form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  // validate, call fetchData, call showLoading/showError, call renderResults
+
+  const searchInput = document.getElementById('search-input').value.trim();
+  const typeSelect = document.getElementById('type-select').value;
+
+  if (!searchInput) return;
+
+  showError('');
+  showLoading(true);
+  document.getElementById('results-grid').innerHTML = '';
+
+  try {
+    let endpoint = `s=${encodeURIComponent(searchInput)}`;
+    if (typeSelect) endpoint += `&type=${typeSelect}`;
+
+    const results = await fetchData(endpoint);
+    renderResults(results);
+  } catch (err) {
+    showError(err.message || 'Failed to fetch data');
+  } finally {
+    showLoading(false);
+  }
 });

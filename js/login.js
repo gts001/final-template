@@ -1,4 +1,4 @@
-// redirect already-logged-in users straight to the main page
+
 if (localStorage.getItem('user')) {
   window.location.href = 'index.html';
 }
