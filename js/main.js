@@ -45,14 +45,20 @@ function renderResults(items) {
     const card = document.createElement('article');
     card.className = 'movie-card';
 
-    const title = document.createElement('h3');
-    title.textContent = item.Title;
-
     const poster = document.createElement('img');
+    poster.className = 'movie-card__poster';
     poster.src = item.Poster !== "N/A" ? item.Poster : "https://via.placeholder.com/200x300?text=No+Image";
     poster.alt = item.Title;
 
+    const title = document.createElement('h3');
+    title.className = 'movie-card__title';
+    title.textContent = item.Title;
+
+    const actions = document.createElement('div');
+    actions.className = 'movie-card__actions';
+
     const saveBtn = document.createElement('button');
+    saveBtn.className = 'movie-card__btn';
 
     const alreadySaved = savedItems.some(saved => saved.imdbID === item.imdbID);
     saveBtn.textContent = alreadySaved ? 'Saved!' : 'Add to Watchlist';
@@ -65,9 +71,10 @@ function renderResults(items) {
       saveBtn.disabled = true;
     });
 
+    actions.appendChild(saveBtn);
     card.appendChild(poster);
     card.appendChild(title);
-    card.appendChild(saveBtn);
+    card.appendChild(actions);
     grid.appendChild(card);
   });
 }

@@ -33,27 +33,33 @@ function renderSaved() {
     const card = document.createElement('article');
     card.className = 'movie-card';
 
-    const title = document.createElement('h3');
-    title.textContent = item.Title;
-
     const poster = document.createElement('img');
+    poster.className = 'movie-card__poster';
     poster.src = item.Poster !== "N/A" ? item.Poster : "https://via.placeholder.com/200x300?text=No+Image";
     poster.alt = item.Title;
 
+    const title = document.createElement('h3');
+    title.className = 'movie-card__title';
+    title.textContent = item.Title;
+
+    const actions = document.createElement('div');
+    actions.className = 'movie-card__actions';
+
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
+    removeBtn.className = 'movie-card__btn movie-card__btn--remove';
     removeBtn.textContent = 'Remove';
-    
-    // Remove item from array and re-render
+
     removeBtn.addEventListener('click', () => {
       const updated = getSaved().filter(saved => saved.imdbID !== item.imdbID);
       setSaved(updated);
       renderSaved();
     });
 
+    actions.appendChild(removeBtn);
     card.appendChild(poster);
     card.appendChild(title);
-    card.appendChild(removeBtn);
+    card.appendChild(actions);
     grid.appendChild(card);
   });
 }
