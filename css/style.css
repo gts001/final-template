@@ -100,10 +100,97 @@ nav {
 /* ===== form ===== */
 
 /* ===== results grid — use CSS Grid here ===== */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
 
 /* ===== card ===== */
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.movie-card__poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+.movie-card__title {
+  padding: var(--spacing-sm) var(--spacing-md) 0;
+  font-size: 1rem;
+}
+
+.movie-card__actions {
+  margin-top: auto;
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.movie-card__btn {
+  background-color: var(--color-primary);
+  border: none;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.movie-card__btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.movie-card__btn:disabled {
+  background-color: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: default;
+}
+
+.movie-card__btn--remove {
+  background-color: transparent;
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+}
+
+.movie-card__btn--remove:hover {
+  background-color: var(--color-error);
+  color: #fff;
+}
+
+.movie-card--watched {
+  opacity: 0.6;
+}
+
+.movie-card--watched .movie-card__title {
+  text-decoration: line-through;
+}
+
+.movie-card__watched-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
 
 /* ===== saved grid — use CSS Grid here ===== */
+.saved-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
 
 /* ===== loading & error states ===== */
 
