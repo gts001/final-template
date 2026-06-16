@@ -4,6 +4,7 @@ function renderSaved() {
   const empty = document.getElementById('saved-empty');
 
   grid.innerHTML = '';
+  document.getElementById('saved-count').textContent = items.length;
 
   if (!items.length) {
     empty.hidden = false;
