@@ -94,10 +94,120 @@ nav {
 }
 
 /* ===== login page ===== */
+body:has(#login-form) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#login-form {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+  max-width: 360px;
+  margin: var(--spacing-md);
+}
+
+#login-form input {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  color: var(--color-text);
+  font-family: inherit;
+}
+
+#login-form button {
+  background-color: var(--color-primary);
+  border: none;
+  color: #fff;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#login-form button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+#login-error {
+  color: var(--color-error);
+}
 
 /* ===== main ===== */
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+main h2 {
+  margin-bottom: var(--spacing-md);
+}
+
+#saved-empty {
+  color: var(--color-text-muted);
+}
 
 /* ===== form ===== */
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--spacing-md);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--spacing-md);
+}
+
+.search-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.search-form label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.search-form input,
+.search-form select {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  color: var(--color-text);
+  font-family: inherit;
+}
+
+.search-form input:focus,
+.search-form select:focus {
+  outline: 2px solid var(--color-primary);
+}
+
+.search-form button {
+  background-color: var(--color-primary);
+  border: none;
+  color: #fff;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.search-form button:hover {
+  background-color: var(--color-primary-hover);
+}
 
 /* ===== results grid — use CSS Grid here ===== */
 .results-grid {
@@ -193,8 +303,31 @@ nav {
 }
 
 /* ===== loading & error states ===== */
+#loading-msg,
+#error-msg {
+  max-width: var(--max-width);
+  margin: var(--spacing-md) auto 0;
+  padding: 0 var(--spacing-lg);
+}
+
+#loading-msg {
+  color: var(--color-text-muted);
+}
+
+#error-msg {
+  color: var(--color-error);
+  font-weight: 600;
+}
 
 /* ===== footer ===== */
+footer {
+  text-align: center;
+  padding: var(--spacing-lg);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--spacing-lg);
+}
 
 /* ===== responsive ===== */
 @media (max-width: 600px) {
