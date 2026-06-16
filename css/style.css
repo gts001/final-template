@@ -210,7 +210,7 @@ main h2 {
 }
 
 /* ===== results grid — use CSS Grid here ===== */
-.results-grid {
+#results-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--spacing-lg);
@@ -295,7 +295,7 @@ main h2 {
 }
 
 /* ===== saved grid — use CSS Grid here ===== */
-.saved-grid {
+#saved-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--spacing-lg);
@@ -347,8 +347,8 @@ footer {
     align-items: stretch;
   }
 
-  .results-grid,
-  .saved-grid {
+  #results-grid,
+  #saved-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -358,8 +358,8 @@ footer {
     --spacing-lg: 2.5rem;
   }
 
-  .results-grid,
-  .saved-grid {
+  #results-grid,
+  #saved-grid {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 

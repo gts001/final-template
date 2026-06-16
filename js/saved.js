@@ -1,3 +1,17 @@
+import { getSaved, setSaved } from './api.js';
+
+if (!localStorage.getItem('user')) {
+  window.location.href = 'login.html';
+}
+
+document.getElementById('nav-user').textContent = localStorage.getItem('user') || '';
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+  localStorage.removeItem('user');
+  document.cookie = 'authorized=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+  window.location.href = 'login.html';
+});
+
 function renderSaved() {
   const items = getSaved();
   const grid = document.getElementById('saved-grid');
@@ -29,8 +43,6 @@ function renderSaved() {
     const actions = document.createElement('div');
     actions.className = 'movie-card__actions';
 
-    // Watched toggle — closes over `item`, so it knows which saved
-    // entry to update when the checkbox changes
     const watchedLabel = document.createElement('label');
     watchedLabel.className = 'movie-card__watched-label';
 
@@ -70,4 +82,5 @@ function renderSaved() {
     grid.appendChild(card);
   });
 }
+
 renderSaved();
