@@ -47,7 +47,7 @@ function renderResults(items) {
 
     const poster = document.createElement('img');
     poster.className = 'movie-card__poster';
-    poster.src = item.Poster !== "N/A" ? item.Poster : "https://via.placeholder.com/200x300?text=No+Image";
+    poster.src = item.Poster !== "N/A" ? item.Poster : "https://placehold.co/200x300?text=No+Image";
     poster.alt = item.Title;
 
     const title = document.createElement('h3');
